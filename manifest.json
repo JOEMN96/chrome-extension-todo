@@ -1,0 +1,20 @@
+{
+  "manifest_version": 2,
+  "name": "Todo APP",
+  "description": "Integrate todo App in chrome !",
+  "version": "2",
+  "icons": {
+    "128": "./images/logo_128.png"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }
+  ],
+  "permissions": ["tabs", "<all_urls>"],
+  "browser_action": {
+    "default_title": "Todo App",
+    "default_popup": "./popup.html"
+  }
+}
