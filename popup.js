@@ -23,23 +23,20 @@ document.querySelector(".date").innerText = date;
 
 const form = document.querySelector("form");
 let ul = document.querySelector("ul");
+let p = document.querySelector(".notodos");
 
 if (localStorage.getItem("todoExt")) {
   var locltodos = JSON.parse(localStorage.getItem("todoExt"));
+  ul.innerText += "";
   updateDom(locltodos);
-  ul.innerHTML += `<p class='notodos'> </p>`;
 } else {
-  ul.innerHTML += `<p class='notodos'> No Todos ! YAY  </p>`;
+  p.innerText = ` No Todos ! YAY `;
 }
 
 clearTodo();
 
 form.addEventListener("submit", (e) => {
-  if (!localStorage.getItem("todoExt")) {
-    const p = document.querySelector(".notodos");
-    p.innerText = "";
-  }
-
+  p.innerText = "";
   e.preventDefault();
   const todo = form.input.value.trim();
   updateDom([todo]);
@@ -71,10 +68,17 @@ function clearTodo() {
     close.forEach((close) => {
       close.addEventListener("click", (e) => {
         e.target.parentElement.remove();
+        if (ul.querySelectorAll("li").length < 1) {
+          console.log("firiuyn");
+          console.log(p);
+        }
         const updatedTOdo = locltodos.filter((todo) => {
           return e.target.parentElement.innerText == todo;
         });
         setLocal(updatedTOdo);
+        if (updatedTOdo.length == 0) {
+          p.innerText = ` No Todos ! YAY  `;
+        }
       });
     });
   }
